@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/gustavjorlov/JossanRickard/issues"
   },
-  "homepage": "https://github.com/gustavjorlov/JossanRickard#readme"
+  "homepage": "https://github.com/gustavjorlov/JossanRickard#readme",
+  "dependencies": {
+    "express": "^4.13.4"
+  }
 }
