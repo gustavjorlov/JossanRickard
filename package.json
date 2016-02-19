@@ -1,0 +1,24 @@
+{
+  "name": "HerokuJossanRickard",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gustavjorlov/JossanRickard.git"
+  },
+  "engines": {
+    "node": "4.2.1",
+    "npm": "3.7.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gustavjorlov/JossanRickard/issues"
+  },
+  "homepage": "https://github.com/gustavjorlov/JossanRickard#readme"
+}
