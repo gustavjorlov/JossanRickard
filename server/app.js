@@ -17,9 +17,14 @@ app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + "/../webapp"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.get("/home", function(req, res){
+	res.sendFile("dist/index.html");
+});
+
 app.get("/login", function(req, res){
 	if(ACCESS_TOKEN !== ""){
-		res.json({'o': ACCESS_TOKEN});
+		console.log("Already logged in");
+		res.redirect("/home");
 	}else{
 		res.redirect(auth_url);
 	}
@@ -40,7 +45,7 @@ app.get("/code", function(req, res){
 			res.json(err);
 		}else{
 			ACCESS_TOKEN = JSON.parse(body).access_token;
-			res.json(body);
+			res.redirect("/home");
 		}
 	});
 
