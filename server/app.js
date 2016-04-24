@@ -17,7 +17,18 @@ app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/images/:tag", function(req, res){
-	request('https://api.instagram.com/v1/tags/'+req.params.tag+'/media/recent?access_token='+ACCESS_TOKEN, function(err, response, body){
+	request('https://api.instagram.com/v1/tags/'+req.params.tag+'/media/recent?count=100&access_token='+ACCESS_TOKEN, function(err, response, body){
+		if(body && body.meta && body.meta.error_type){
+			console.log(body);
+			res.redirect("/");
+			return;
+		}
+		res.send(body);
+	});
+});
+
+app.get("feed", function(req, res){
+	request('https://api.instagram.com/v1/users/self/feed?access_token='+ACCESS_TOKEN, function(err, response, body){
 		if(body && body.meta && body.meta.error_type){
 			console.log(body);
 			res.redirect("/");
