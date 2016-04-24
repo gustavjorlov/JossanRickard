@@ -24,8 +24,8 @@ app.get("/ok", function(req, res){
 
 app.get("/code", function(req, res){
 	console.log("code", JSON.stringify(req.url));
-	console.log(querystring.parse(req.url.split("?")));
-	res.send("Yeah" + querystring.parse(req.url.split("?")));
+	console.log(querystring.parse(req.url.split("?")[1]));
+	res.send("Yeah " + querystring.parse(req.url.split("?")[1]));
 });
 
 app.listen(app.get('port'));
