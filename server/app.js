@@ -10,7 +10,7 @@ var CLIENT_SECRET = "d6565fb097a54473aa84092be097aadc";
 var REDIRECT_URI = "https://jossanrickard.herokuapp.com/code";
 var ACCESS_TOKEN = "";
 
-var auth_url = "https://api.instagram.com/oauth/authorize/?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code";
+var auth_url = "https://api.instagram.com/oauth/authorize/?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code&scope=public_content";
 
 app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + "/../dist"));
