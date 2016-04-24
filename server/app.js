@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("/images/:tag", function(req, res){
-	request('https://api.instagram.com/v1/tags/'+req.params.tag+'/media/recent?count=100&access_token='+ACCESS_TOKEN, function(err, response, body){
+	request('https://api.instagram.com/v1/tags/'+req.params.tag+'/media/recent?count=30&access_token='+ACCESS_TOKEN, function(err, response, body){
 		if(body && body.meta && body.meta.error_type){
 			console.log(body);
 			res.redirect("/");
@@ -29,7 +29,7 @@ app.get("/images/:tag", function(req, res){
 });
 
 app.get("/feed", function(req, res){
-	request('https://api.instagram.com/v1/users/self/feed?access_token='+ACCESS_TOKEN, function(err, response, body){
+	request('https://api.instagram.com/v1/users/self/feed?count=30&access_token='+ACCESS_TOKEN, function(err, response, body){
 		if(body && body.meta && body.meta.error_type){
 			console.log(body);
 			res.redirect("/");
