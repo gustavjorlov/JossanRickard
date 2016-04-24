@@ -11,20 +11,26 @@ var REDIRECT_URI = "https://jossanrickard.herokuapp.com/code";
 var ACCESS_TOKEN = "";
 
 var auth_url = "https://api.instagram.com/oauth/authorize/?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code";
-var auth_token_url = "https://runkeeper.com/apps/token";
 
 app.set('port', (process.env.PORT || 3000));
-app.use(express.static(__dirname + "/../webapp"));
+app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get("/home", function(req, res){
-	res.sendFile("dist/index.html");
+app.get("/images", function(req, res){
+	request('https://api.instagram.com/v1/tags/skiing/media/recent?access_token='+ACCESS_TOKEN, function(err, response, body){
+		if(body && body.meta && body.meta.error_type){
+			console.log(body);
+			res.redirect("/");
+			return;
+		}
+		res.send(body);
+	});
 });
 
 app.get("/login", function(req, res){
 	if(ACCESS_TOKEN !== ""){
 		console.log("Already logged in");
-		res.redirect("/home");
+		res.redirect("/");
 	}else{
 		res.redirect(auth_url);
 	}
@@ -45,7 +51,7 @@ app.get("/code", function(req, res){
 			res.json(err);
 		}else{
 			ACCESS_TOKEN = JSON.parse(body).access_token;
-			res.redirect("/home");
+			res.redirect("/");
 		}
 	});
 
