@@ -23,7 +23,8 @@ app.get("/ok", function(req, res){
 });
 
 app.get("/code", function(req, res){
-	console.log("code", JSON.stringify(req.headers));
+	console.log("code", JSON.stringify(req.url));
+	console.log(querystring.parse(req.url));
 });
 
 app.listen(app.get('port'));
