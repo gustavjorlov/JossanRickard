@@ -51,7 +51,7 @@ app.get("/feed", function(req, res){
 			res.redirect("/");
 			return;
 		}
-		res.send(body);
+		res.send(extractImageurls(body));
 	});
 });
 
