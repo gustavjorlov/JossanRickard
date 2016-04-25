@@ -2,7 +2,7 @@ var express = require('express');
 var querystring = require('querystring');
 var request = require('request');
 var bodyParser = require('body-parser');
-var logger = require('morgan');
+var morgan = require('morgan');
 
 var app = express();
 
