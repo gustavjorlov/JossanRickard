@@ -2,6 +2,7 @@ var express = require('express');
 var querystring = require('querystring');
 var request = require('request');
 var bodyParser = require('body-parser');
+var logger = require('morgan');
 
 var app = express();
 
@@ -16,6 +17,7 @@ app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + "/../dist"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(morgan('dev'))
 
 app.get("/images", function(req, res){
 	// var encodedTag = encodeURIComponent(req.params.tag);
