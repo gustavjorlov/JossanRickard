@@ -37,7 +37,12 @@ function extractImageurls(body){
 		console.log(Object.keys(things));
 		if(things.data){
 			return things.data.map(function(item){
-				return item.images.standard_resolution.url;
+				return {
+					url: item.images.standard_resolution.url,
+					caption: item.caption ? item.caption.text : "",
+					id: item.id,
+					time: item.created_time
+				};
 			});
 		}
 	}
