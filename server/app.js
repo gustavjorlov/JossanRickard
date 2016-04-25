@@ -32,9 +32,12 @@ app.get("/images", function(req, res){
 function extractImageurls(body){
 	console.log(body);
 	if(body){
-		return JSON.parse(body).data.map(function(item){
-			return item.images.standard_resolution.url;
-		});
+		var things = JSON.parse(body);
+		console.log(Object.keys(things));
+		return things;
+		// return JSON.parse(body).data.map(function(item){
+		// 	return item.images.standard_resolution.url;
+		// });
 	}else{
 		return [];
 	}
