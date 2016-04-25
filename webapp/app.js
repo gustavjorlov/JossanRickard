@@ -4,9 +4,7 @@ import $ from 'jquery';
 
 class Application extends React.Component {
     constructor(){
-        this.setState({
-            images: []
-        });
+        this.state = { images: [] };
     }
     componentDidMount(){
         console.log("componentDidMount");
