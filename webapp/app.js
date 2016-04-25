@@ -5,6 +5,7 @@ import ImageList from './ImageList.js';
 
 class Application extends React.Component {
     constructor(){
+        super(props);
         this.state = { images: [] };
     }
     componentDidMount(){
