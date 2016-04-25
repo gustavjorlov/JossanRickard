@@ -37,7 +37,6 @@ function extractImageurls(body){
 		var things = JSON.parse(body);
 		console.log(Object.keys(things));
 		console.log(things.data);
-		console.log(things.data.length);
 		return things;
 		// return JSON.parse(body).data.map(function(item){
 		// 	return item.images.standard_resolution.url;
