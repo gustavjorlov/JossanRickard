@@ -32,18 +32,16 @@ app.get("/images", function(req, res){
 });
 
 function extractImageurls(body){
-	console.log(body);
 	if(body){
 		var things = JSON.parse(body);
 		console.log(Object.keys(things));
-		console.log(things.data);
-		return things;
-		// return JSON.parse(body).data.map(function(item){
-		// 	return item.images.standard_resolution.url;
-		// });
-	}else{
-		return [];
+		if(things.data){
+			return things.data.map(function(item){
+				return item.images.standard_resolution.url;
+			});
+		}
 	}
+	return [];
 }
 
 app.get("/feed", function(req, res){
