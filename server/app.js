@@ -5,8 +5,8 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-var CLIENT_ID = "1bac9d4c01ff440395c47f39567a8897";
-var CLIENT_SECRET = "d6565fb097a54473aa84092be097aadc";
+var CLIENT_ID = "1fd1f4a4151a4396ba72415f9c328304";
+var CLIENT_SECRET = "e101e4526492416c9f33727a21f21be3";
 var REDIRECT_URI = "https://jossanrickard.herokuapp.com/code";
 var ACCESS_TOKEN = "";
 
