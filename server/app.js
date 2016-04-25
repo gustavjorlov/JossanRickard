@@ -33,6 +33,7 @@ function extractImageurls(body){
 	console.log(body);
 	if(body){
 		var things = JSON.parse(body);
+		console.log(Object.keys(things));
 		console.log(things.data);
 		console.log(things.data.length);
 		return things;
