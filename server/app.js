@@ -63,6 +63,7 @@ app.get("/code", function(req, res){
 			res.json(err);
 		}else{
 			ACCESS_TOKEN = JSON.parse(body).access_token;
+			console.log(ACCESS_TOKEN);
 			res.redirect("/");
 		}
 	});
