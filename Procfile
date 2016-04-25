@@ -1,1 +1,1 @@
-web: npm run build && node server/app.js
+web: npm install && npm run build && node server/app.js

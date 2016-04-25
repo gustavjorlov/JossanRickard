@@ -9,9 +9,13 @@ export default class ImageList extends React.Component{
         };
         console.log(this.images);
     }
+    getImages(item){
+        console.log(item);
+    }
     render(){
         return (<div>
             <h1>ImageList</h1>
+            {this.images ? this.images.map(this.getImages) : ""}
         </div>);
     }
 }
