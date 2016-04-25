@@ -30,9 +30,13 @@ app.get("/images", function(req, res){
 });
 
 function extractImageurls(body){
-	return body.data.map(function(item){
-		return item.images.standard_resolution.url;
-	});
+	if(body && body.data){
+		return body.data.map(function(item){
+			return item.images.standard_resolution.url;
+		});
+	}else{
+		return [];
+	}
 }
 
 app.get("/feed", function(req, res){
