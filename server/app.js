@@ -25,9 +25,15 @@ app.get("/images", function(req, res){
 			res.redirect("/");
 			return;
 		}
-		res.send(body);
+		res.send(extractImageurls(body));
 	});
 });
+
+function extractImageurls(body){
+	return body.data.map(function(item){
+		return item.images.standard_resolution.url;
+	});
+}
 
 app.get("/feed", function(req, res){
 	request('https://api.instagram.com/v1/users/self/feed?access_token='+ACCESS_TOKEN, function(err, response, body){
