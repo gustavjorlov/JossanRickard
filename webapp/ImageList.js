@@ -6,7 +6,6 @@ export default class ImageList extends React.Component{
         return (<div key={item.id} className="image">
             <img src={item.url} />
             <p>{item.caption}</p>
-            <p>{new Date(item.time)}</p>
         </div>);
     }
     render(){
