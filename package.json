@@ -28,7 +28,7 @@
   "scripts": {
     "clean": "rimraf dist && mkdir dist",
     "copy:html": "cp webapp/index.html dist/",
-    "compile": "browserify webapp/app.js -t babelify -t [ envify --NODE_ENV development ] --debug -o dist/bundle.js",
+    "compile": "browserify webapp/app.js -t babelify --debug -o dist/bundle.js",
     "prebuild": "npm run clean",
     "build": "npm run copy:html && npm run compile"
   },

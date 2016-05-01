@@ -4,6 +4,8 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 
+process.env['NODE_ENV'] = 'development';
+
 var app = express();
 
 var CLIENT_ID = "1fd1f4a4151a4396ba72415f9c328304";
