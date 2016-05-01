@@ -10,10 +10,7 @@ export default class ImageList extends React.Component{
         console.log("ImageList", this.state);
         return (<div>
             <h1>ImageList</h1>
-            {this.props.images ? this.props.images.map((item) => {
-              console.log("hello", item);
-              this.getImages(item);
-            }) : "no images"}
+            {this.props.images ? this.props.images.map(this.getImages) : "no images"}
         </div>);
     }
 }
