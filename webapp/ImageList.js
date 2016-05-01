@@ -16,7 +16,9 @@ export default class ImageList extends React.Component{
     render(){
         return (<div>
             <h1>ImageList</h1>
-            {this.state.images ? this.state.images.map(this.getImages) : "no images"}
+            {this.state.images ? this.state.images.map((item) => {
+              console.log("hello", item);
+            }) : "no images"}
         </div>);
     }
 }
