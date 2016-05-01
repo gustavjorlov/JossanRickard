@@ -18,6 +18,7 @@ class Application extends React.Component {
         });
     }
     render(){
+      console.log("app", this.state);
         return (<div>
             <h1>JSX</h1>
             <ImageList images={this.state.images} />
