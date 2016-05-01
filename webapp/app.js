@@ -10,7 +10,7 @@ class Application extends React.Component {
     }
     componentDidMount(){
         console.log("componentDidMount");
-        $.get("/images", (err, response) => {
+        $.get("/images", (response, status) => {
             console.log(err, response);
             this.setState({
                 images: response
