@@ -11,11 +11,12 @@ export default class ImageList extends React.Component{
     }
     getImages(item){
         console.log(item);
+        return "<h1>"+item.url+"</h1>";
     }
     render(){
         return (<div>
             <h1>ImageList</h1>
-            {this.state.images ? this.state.images.map(this.getImages) : ""}
+            {this.state.images ? this.state.images.map(this.getImages) : "no images"}
         </div>);
     }
 }
