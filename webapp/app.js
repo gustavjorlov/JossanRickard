@@ -11,7 +11,7 @@ class Application extends React.Component {
     componentDidMount(){
         console.log("componentDidMount");
         $.get("/images", (response, status) => {
-            console.log(err, response);
+            console.log(response);
             this.setState({
                 images: response
             });
