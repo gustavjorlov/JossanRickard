@@ -10,7 +10,7 @@ export default class ImageList extends React.Component{
         </div>);
     }
     render(){
-        console.log("ImageList", this.state);
+        console.log("ImageList", this.props);
         return (<div>
             <h1>ImageList</h1>
             {this.props.images ? this.props.images.map(this.getImages) : "no images"}
