@@ -2,6 +2,7 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import $ from 'jquery';
 import ImageList from './ImageList.js';
+import MessageList from './MessageList.js';
 
 class Application extends React.Component {
     constructor(props){
