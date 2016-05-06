@@ -1,12 +1,13 @@
+var MongoClient = require('mongodb').MongoClient;
 var express = require('express');
 var querystring = require('querystring');
 var request = require('request');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
-
+var app = express();
 process.env['NODE_ENV'] = 'development';
 
-var app = express();
+var DB_url = 'mongodb://localhost:27017/jossanrickard';
 
 var CLIENT_ID = "1fd1f4a4151a4396ba72415f9c328304";
 var CLIENT_SECRET = "e101e4526492416c9f33727a21f21be3";
@@ -90,7 +91,50 @@ app.get("/code", function(req, res){
 			res.redirect("/");
 		}
 	});
-
 });
 
-app.listen(app.get('port'));
+app.post("/image", function(req, res){
+	addInstagramImage("image stuff", function(err){
+		if(err){
+			res.status(500).send('Nooo image...');
+		}else{
+			res.status(200).send('Yey image');
+		}
+	});
+});
+
+app.post("/message", function(req, res){
+	console.log(req.body);
+	addMessage("post request message", function(err){
+		if(err){
+			res.status(500).send('Nooo message...');
+		}else{
+			res.status(200).send('Yey message');
+		}
+	});
+});
+
+var addInstagramImage = function(db, data, callback){
+	db.collection('messages').insertOne({'type': 'instagram'}, function(err, result){
+		console.log("addInstagramImage", err);
+		callback(err);
+	});
+}
+
+var addMessage = function(db, message, callback){
+	db.collection('messages').insertOne({'message': message, 'type': 'text'}, function(err, result){
+		console.log("addMessage", err);
+		callback(err);
+	});
+}
+
+MongoClient.connect(DB_url, function(err, db){
+	console.log("Database connected");
+
+	addMessage = addMessage.bind(null, db);
+	addInstagramImage = addInstagramImage.bind(null, db);
+
+	app.listen(app.get('port'), function(err){
+		console.log("Listening to ", app.get('port'), err);
+	});
+});
