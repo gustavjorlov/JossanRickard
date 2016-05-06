@@ -62,14 +62,23 @@ var insertImagesToDb = function(images){
 	console.log("insertImagesToDb:", images.length, "images");
 	message_collection.find({'type': 'instagram'}).toArray(function(error, result){
 		var newImages = images.filter(function(image){
-			var dates = result.map(function(item){
-				return item.date;
-			});
+			var dates = result.map(function(item){ return item.date; });
 			return dates.indexOf(image.date) === -1;
 		});
-		message_collection.insertMany(newImages, function(err, result){
-			console.log("insertImagesToDb insertMany", err, result);
-		});
+		return Promise.all(newImages.map(function(image){
+			return new Promise(function(resolve, reject){
+				message_collection.insertOne(image, function(err, result){
+					console.log("insertImagesToDb insertOne", err, result);
+					if(err){ reject(err) }else{
+						resolve();
+					}
+				});
+			});
+		}));
+
+		// message_collection.insertMany(newImages, function(err, result){
+		// 	console.log("insertImagesToDb insertMany", err, result);
+		// });
 	});
 
 }
