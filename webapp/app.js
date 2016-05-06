@@ -20,10 +20,14 @@ class Application extends React.Component {
                 this.setState({
                     messages: response.filter((item) => {
                         return item.type === "text";
+                    }).sort((a, b) => {
+                        return Number(a.time) < Number(b.time) ? 1 : -1;
                     }),
                     images: response.filter((item) => {
                         return item.type === "instagram";
-                    })
+                    }).sort((a, b) => {
+                        return Number(a.time) < Number(b.time) ? 1 : -1;
+                    });
                 });
             });
         }, 1000*30);
