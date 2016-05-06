@@ -93,6 +93,20 @@ app.get("/code", function(req, res){
 	});
 });
 
+var addInstagramImage = function(db, data, callback){
+	db.collection('messages').insertOne({'type': 'instagram'}, function(err, result){
+		console.log("addInstagramImage", err);
+		callback(err);
+	});
+}
+
+var addMessage = function(db, message, callback){
+	db.collection('messages').insertOne({'message': message, 'type': 'text'}, function(err, result){
+		console.log("addMessage", err);
+		callback(err);
+	});
+}
+
 app.post("/image", function(req, res){
 	addInstagramImage("image stuff", function(err){
 		if(err){
@@ -113,20 +127,6 @@ app.post("/message", function(req, res){
 		}
 	});
 });
-
-var addInstagramImage = function(db, data, callback){
-	db.collection('messages').insertOne({'type': 'instagram'}, function(err, result){
-		console.log("addInstagramImage", err);
-		callback(err);
-	});
-}
-
-var addMessage = function(db, message, callback){
-	db.collection('messages').insertOne({'message': message, 'type': 'text'}, function(err, result){
-		console.log("addMessage", err);
-		callback(err);
-	});
-}
 
 MongoClient.connect(DB_url, function(err, db){
 	console.log("Database connected");
