@@ -14,17 +14,19 @@ class Application extends React.Component {
     }
     componentDidMount(){
         console.log("componentDidMount");
-        $.get("/messages", (response, status) => {
-            console.log(response);
-            this.setState({
-                messages: response.filter((item) => {
-                    return item.type === "text";
-                }),
-                images: response.filter((item) => {
-                    return item.type === "instagram";
-                })
+        setInterval(() => {
+            $.get("/messages", (response, status) => {
+                console.log(response);
+                this.setState({
+                    messages: response.filter((item) => {
+                        return item.type === "text";
+                    }),
+                    images: response.filter((item) => {
+                        return item.type === "instagram";
+                    })
+                });
             });
-        });
+        }, 1000*30);
     }
     render(){
         return (
