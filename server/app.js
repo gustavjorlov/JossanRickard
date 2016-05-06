@@ -61,10 +61,12 @@ var getInstagramStuff = function(){
 var insertImagesToDb = function(images){
 	console.log("insertImagesToDb:", images.length, "images");
 	message_collection.find({'type': 'instagram'}).toArray(function(error, result){
+		console.log("insertImagesToDb", result.length, "already present");
 		var newImages = images.filter(function(image){
-			var dates = result.map(function(item){ return item.date; });
-			return dates.indexOf(image.date) === -1;
+			var times = result.map(function(item){ return item.time; });
+			return times.indexOf(image.time) === -1;
 		});
+		console.log("insertImagesToDb will insert", newImages.length, "images");
 		return Promise.all(newImages.map(function(image){
 			return new Promise(function(resolve, reject){
 				message_collection.insertOne(image, function(err, result){
@@ -75,10 +77,6 @@ var insertImagesToDb = function(images){
 				});
 			});
 		}));
-
-		// message_collection.insertMany(newImages, function(err, result){
-		// 	console.log("insertImagesToDb insertMany", err, result);
-		// });
 	});
 
 }
