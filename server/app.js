@@ -40,7 +40,13 @@ app.get("/images", function(req, res){
 });
 
 app.get("/messages", function(req, res){
-	res.json(message_collection.find().toArray());
+	message_collection.find().toArray(function(err, result){
+		if(err){
+			res.status(500).send("Didn't find anything");
+		}else{
+			res.json(result);
+		}
+	});
 });
 
 function extractImageurls(body){
