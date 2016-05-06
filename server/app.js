@@ -135,12 +135,5 @@ MongoClient.connect(DB_url, function(err, db){
 
 	app.listen(app.get('port'), function(err){
 		console.log("Listening to ", app.get('port'), err);
-		addInstagramImage("images....", function(err){
-			if(err){
-				res.status(500).send('Nooo image...');
-			}else{
-				res.status(200).send('Yey image');
-			}
-		});
 	});
 });
