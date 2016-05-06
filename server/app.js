@@ -7,7 +7,7 @@ var morgan = require('morgan');
 var app = express();
 process.env['NODE_ENV'] = 'development';
 
-var DB_url = 'mongodb://heroku_d4tq6fds:Kind7575@ds011442.mlab.com:11442/heroku_d4tq6fds';
+var DB_url = 'mongodb://gurra:detbrinner18@ds011442.mlab.com:11442/heroku_d4tq6fds';
 var message_collection = null;
 
 var CLIENT_ID = "1fd1f4a4151a4396ba72415f9c328304";
