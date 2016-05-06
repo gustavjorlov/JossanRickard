@@ -101,8 +101,8 @@ var addInstagramImage = function(data, callback){
 	});
 }
 
-var addMessage = function(message, callback){
-	message_collection.insertOne({'message': message, 'type': 'text'}, function(err, result){
+var addMessage = function(message, name, callback){
+	message_collection.insertOne({'message': message, 'name': name, 'type': 'text'}, function(err, result){
 		console.log("addMessage", err);
 		callback(err);
 	});
@@ -120,7 +120,7 @@ app.post("/image", function(req, res){
 
 app.post("/message", function(req, res){
 	console.log(req.body);
-	addMessage("post request message", function(err){
+	addMessage(req.body.message, req.body.name, function(err){
 		if(err){
 			res.status(500).send('Nooo message...');
 		}else{
