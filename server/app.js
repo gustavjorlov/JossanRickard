@@ -31,12 +31,16 @@ app.get("/images", function(req, res){
 			res.redirect("/");
 			return;
 		}
-		if(JSON.parse(body).data){
+		if(body && JSON.parse(body).data){
 			res.send(extractImageurls(body));
 		}else{
 			res.redirect("/login");
 		}
 	});
+});
+
+app.get("/messages", function(req, res){
+	res.json(message_collection.find().toArray());
 });
 
 function extractImageurls(body){

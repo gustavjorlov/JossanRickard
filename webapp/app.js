@@ -10,10 +10,10 @@ class Application extends React.Component {
     }
     componentDidMount(){
         console.log("componentDidMount");
-        $.get("/images", (response, status) => {
+        $.get("/messages", (response, status) => {
             console.log(response);
             this.setState({
-                images: response
+                messages: response
             });
         });
     }
@@ -21,7 +21,7 @@ class Application extends React.Component {
         return (
             <div className="application">
                 <h1>#RHJÄRTAJ</h1>
-                <ImageList images={this.state.images} />
+                <ImageList messages={this.state.messages} />
             </div>
         );
     }
