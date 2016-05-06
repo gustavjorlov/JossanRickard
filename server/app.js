@@ -130,7 +130,7 @@ app.post("/message", function(req, res){
 });
 
 MongoClient.connect(DB_url, function(err, db){
-	console.log("Database connected");
+	console.log("Database connected", err);
 	message_collection = db.collection('messages');
 
 	app.listen(app.get('port'), function(err){
