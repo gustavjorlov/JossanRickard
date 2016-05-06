@@ -31,7 +31,11 @@ app.get("/images", function(req, res){
 			res.redirect("/");
 			return;
 		}
-		res.send(extractImageurls(body));
+		if(JSON.parse(body).data){
+			res.send(extractImageurls(body));
+		}else{
+			res.redirect("/login");
+		}
 	});
 });
 
