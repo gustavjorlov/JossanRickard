@@ -43,7 +43,9 @@ app.get("/images", function(req, res){
 var getInstagramStuff = function(){
 	console.log("getInstagramStuff");
 	return new Promise(function(resolve, reject){
+		console.log("getInstagramStuff Promise");
 		request('https://api.instagram.com/v1/tags/'+encodeURIComponent("rhjärtaj")+'/media/recent?access_token='+ACCESS_TOKEN, function(err, response, body){
+			console.log("getInstagramStuff request");
 			if(body && body.meta && body.meta.error_type){
 				console.log("getInstagramStuff reject");
 				reject(body.meta);
