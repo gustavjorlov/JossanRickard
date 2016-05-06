@@ -69,6 +69,7 @@ var insertImagesToDb = function(images){
 		console.log("insertImagesToDb will insert", newImages.length, "images");
 		return Promise.all(newImages.map(function(image){
 			return new Promise(function(resolve, reject){
+				image.type = "instagram";
 				message_collection.insertOne(image, function(err, result){
 					console.log("insertImagesToDb insertOne, error:", err);
 					if(err){ reject(err) }else{
@@ -167,29 +168,12 @@ app.get("/code", function(req, res){
 	});
 });
 
-var addInstagramImage = function(data, callback){
-	message_collection.insertOne({'type': 'instagram'}, function(err, result){
-		console.log("addInstagramImage", err);
-		callback(err);
-	});
-}
-
 var addMessage = function(message, name, callback){
 	message_collection.insertOne({'message': message, 'name': name, 'type': 'text'}, function(err, result){
 		console.log("addMessage", err);
 		callback(err);
 	});
 }
-
-app.post("/image", function(req, res){
-	addInstagramImage("image stuff", function(err){
-		if(err){
-			res.status(500).send('Nooo image...');
-		}else{
-			res.status(200).send('Yey image');
-		}
-	});
-});
 
 app.post("/message", function(req, res){
 	console.log(req.body);
