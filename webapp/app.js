@@ -27,7 +27,7 @@ class Application extends React.Component {
                         return item.type === "instagram";
                     }).sort((a, b) => {
                         return Number(a.time) < Number(b.time) ? 1 : -1;
-                    });
+                    })
                 });
             });
         }, 1000*30);
