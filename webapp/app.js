@@ -6,14 +6,22 @@ import ImageList from './ImageList.js';
 class Application extends React.Component {
     constructor(props){
         super(props);
-        this.state = { messages: [] };
+        this.state = {
+            messages: [],
+            images: []
+        };
     }
     componentDidMount(){
         console.log("componentDidMount");
         $.get("/messages", (response, status) => {
             console.log(response);
             this.setState({
-                messages: response
+                messages: response.filter((item) => {
+                    return item.type === "text";
+                }),
+                images: response.filter((item) => {
+                    return item.type === "instagram";
+                })
             });
         });
     }
@@ -21,7 +29,8 @@ class Application extends React.Component {
         return (
             <div className="application">
                 <h1>#RHJÄRTAJ</h1>
-                <ImageList messages={this.state.messages} />
+                <ImageList images={this.state.images} />
+                <MessageList messages={this.state.messages} />
             </div>
         );
     }
