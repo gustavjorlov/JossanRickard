@@ -34,10 +34,12 @@ class Application extends React.Component {
     }
     render(){
         return (
-            <div className="application">
+            <div className="application container">
                 <h1>#RHJÄRTAJ</h1>
-                <ImageList images={this.state.images} />
-                <MessageList messages={this.state.messages} />
+                <div className="row">
+                    <ImageList images={this.state.images} />
+                    <MessageList messages={this.state.messages} />
+                </div>
             </div>
         );
     }
