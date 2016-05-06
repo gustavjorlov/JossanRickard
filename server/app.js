@@ -70,7 +70,7 @@ var insertImagesToDb = function(images){
 		return Promise.all(newImages.map(function(image){
 			return new Promise(function(resolve, reject){
 				message_collection.insertOne(image, function(err, result){
-					console.log("insertImagesToDb insertOne", err, result);
+					console.log("insertImagesToDb insertOne, error:", err);
 					if(err){ reject(err) }else{
 						resolve();
 					}
@@ -84,6 +84,11 @@ var insertImagesToDb = function(images){
 var promiseError = function(err){
 	console.log("promiseError", err);
 }
+
+app.get("/wipe", function(req, res){
+	message_collection.deleteMany({});
+	res.redirect("/");
+})
 
 app.get("/messages", function(req, res){
 
