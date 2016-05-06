@@ -5,6 +5,7 @@ var request = require('request');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app = express();
+var Promise = require('promise');
 process.env['NODE_ENV'] = 'development';
 
 var DB_url = 'mongodb://gurra:detbrinner18@ds011442.mlab.com:11442/heroku_d4tq6fds';
@@ -39,14 +40,58 @@ app.get("/images", function(req, res){
 	});
 });
 
-app.get("/messages", function(req, res){
-	message_collection.find().toArray(function(err, result){
-		if(err){
-			res.status(500).send("Didn't find anything");
-		}else{
-			res.json(result);
-		}
+var getInstagramStuff = function(){
+	console.log("getInstagramStuff");
+	return new Promise(function(resolve, reject){
+		request('https://api.instagram.com/v1/tags/'+encodeURIComponent("rhjärtaj")+'/media/recent?access_token='+ACCESS_TOKEN, function(err, response, body){
+			if(body && body.meta && body.meta.error_type){
+				console.log("getInstagramStuff reject");
+				reject(body.meta);
+			}
+			if(body && JSON.parse(body).data){
+				console.log("getInstagramStuff resolve");
+				resolve(extractImageurls(body));
+			}
+		});
 	});
+}
+
+var insertImagesToDb = function(images){
+	console.log("insertImagesToDb:", images.length, "images");
+	message_collection.find({'type': 'instagram'}).toArray(function(error, result){
+		var newImages = images.filter(function(image){
+			var dates = result.map(function(item){
+				return item.date;
+			});
+			return dates.indexOf(image.date) === -1;
+		});
+		message_collection.insertMany(newImages, function(err, result){
+			console.log("insertImagesToDb insertMany", err, result);
+		});
+	});
+
+}
+
+var promiseError = function(err){
+	console.log("promiseError", err);
+}
+
+app.get("/messages", function(req, res){
+
+	// TODO: trigger the instagram fetching, put that result to the database
+	// and make sure this function returns with all interesting things in the "messages" variable.
+
+	getInstagramStuff()
+		.then(insertImagesToDb, promiseError)
+		.then(function(){
+			message_collection.find().toArray(function(error, result){
+				if(error){
+					res.status(500).send("Didn't find anything");
+				}else{
+					res.json(result);
+				}
+			});
+		});
 });
 
 function extractImageurls(body){
