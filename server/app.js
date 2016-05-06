@@ -94,7 +94,7 @@ app.get("/code", function(req, res){
 	});
 });
 
-var addInstagramImage = function(db, data, callback){
+var addInstagramImage = function(data, callback){
 	message_collection.insertOne({'type': 'instagram'}, function(err, result){
 		console.log("addInstagramImage", err);
 		callback(err);
