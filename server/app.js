@@ -8,6 +8,7 @@ var app = express();
 process.env['NODE_ENV'] = 'development';
 
 var DB_url = 'mongodb://heroku_d4tq6fds:Kind7575@ds011442.mlab.com:11442/heroku_d4tq6fds';
+var message_collection = null;
 
 var CLIENT_ID = "1fd1f4a4151a4396ba72415f9c328304";
 var CLIENT_SECRET = "e101e4526492416c9f33727a21f21be3";
@@ -94,14 +95,14 @@ app.get("/code", function(req, res){
 });
 
 var addInstagramImage = function(db, data, callback){
-	db.collection('messages').insertOne({'type': 'instagram'}, function(err, result){
+	message_collection.insertOne({'type': 'instagram'}, function(err, result){
 		console.log("addInstagramImage", err);
 		callback(err);
 	});
 }
 
-var addMessage = function(db, message, callback){
-	db.collection('messages').insertOne({'message': message, 'type': 'text'}, function(err, result){
+var addMessage = function(message, callback){
+	message_collection.insertOne({'message': message, 'type': 'text'}, function(err, result){
 		console.log("addMessage", err);
 		callback(err);
 	});
@@ -130,9 +131,7 @@ app.post("/message", function(req, res){
 
 MongoClient.connect(DB_url, function(err, db){
 	console.log("Database connected");
-
-	addMessage = addMessage.bind(null, db);
-	addInstagramImage = addInstagramImage.bind(null, db);
+	message_collection = db.collection('messages');
 
 	app.listen(app.get('port'), function(err){
 		console.log("Listening to ", app.get('port'), err);
