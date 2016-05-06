@@ -169,7 +169,7 @@ app.get("/code", function(req, res){
 });
 
 var addMessage = function(message, name, callback){
-	message_collection.insertOne({'message': message, 'name': name, 'type': 'text'}, function(err, result){
+	message_collection.insertOne({'message': message, 'name': name, 'type': 'text', 'time': Math.round(+new Date() / 1000)}, function(err, result){
 		console.log("addMessage", err);
 		callback(err);
 	});
