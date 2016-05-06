@@ -29,10 +29,12 @@
   },
   "scripts": {
     "clean": "rimraf dist && mkdir dist",
+    "copy": "npm run copy:html && npm run copy:css",
     "copy:html": "cp webapp/index.html dist/",
+    "copy:css": "cp webapp/*.css dist/",
     "compile": "browserify webapp/app.js -t babelify --debug -o dist/bundle.js",
     "prebuild": "npm run clean",
-    "build": "npm run copy:html && npm run compile"
+    "build": "npm run copy && npm run compile"
   },
   "devDependencies": {
     "envify": "^3.4.0"
