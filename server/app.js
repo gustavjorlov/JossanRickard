@@ -17,6 +17,7 @@ var REDIRECT_URI = "https://jossanrickard.herokuapp.com/code";
 var ACCESS_TOKEN = "";
 
 var auth_url = "https://api.instagram.com/oauth/authorize/?client_id="+CLIENT_ID+"&redirect_uri="+REDIRECT_URI+"&response_type=code";
+var request_couter = 0;
 
 app.set('port', (process.env.PORT || 3000));
 app.use(express.static(__dirname + "/../dist"));
@@ -41,20 +42,28 @@ app.get("/images", function(req, res){
 });
 
 var getInstagramStuff = function(){
+	request_couter++;
 	console.log("getInstagramStuff");
 	return new Promise(function(resolve, reject){
 		console.log("getInstagramStuff Promise");
-		request('https://api.instagram.com/v1/tags/'+encodeURIComponent("rhjärtaj")+'/media/recent?access_token='+ACCESS_TOKEN, function(err, response, body){
-			console.log("getInstagramStuff request");
-			if(body && body.meta && body.meta.error_type){
-				console.log("getInstagramStuff reject");
-				reject(body.meta);
-			}
-			if(body && JSON.parse(body).data){
-				console.log("getInstagramStuff resolve");
-				resolve(extractImageurls(body));
-			}
-		});
+		if(request_couter % 2 === 0){
+			console.log("getInstagramStuff requesting");
+			request('https://api.instagram.com/v1/tags/'+encodeURIComponent("rhjärtaj")+'/media/recent?access_token='+ACCESS_TOKEN, function(err, response, body){
+				console.log("getInstagramStuff request");
+				if(body && body.meta && body.meta.error_type){
+					console.log("getInstagramStuff reject");
+					reject(body.meta);
+				}
+				if(body && JSON.parse(body).data){
+					console.log("getInstagramStuff resolve");
+					resolve(extractImageurls(body));
+				}
+			});
+		}else{
+			console.log("getInstagramStuff resolve([])");
+			resolve([]);
+		}
+
 	});
 }
 
