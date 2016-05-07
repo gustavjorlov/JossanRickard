@@ -92,10 +92,6 @@ app.get("/wipe", function(req, res){
 })
 
 app.get("/messages", function(req, res){
-
-	// TODO: trigger the instagram fetching, put that result to the database
-	// and make sure this function returns with all interesting things in the "messages" variable.
-
 	getInstagramStuff()
 		.then(insertImagesToDb, promiseError)
 		.then(function(){

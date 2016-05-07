@@ -30,7 +30,7 @@ class Application extends React.Component {
                     })
                 });
             });
-        }, 1000*30);
+        }, 1000*15);
     }
     render(){
         return (

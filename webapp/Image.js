@@ -2,10 +2,10 @@ import React from 'react';
 
 const Image = ({id, url, caption}) => {
     return (
-        <div key={id} className="image">
-            <img className="img-thumbnail img-fluid" src={url} />
-            <p>{caption}</p>
-        </div>
+        <figure key={id} className="figure">
+            <img data-src={url} className="figure-img img-fluid img-rounded">
+            <figcaption className="figure-caption text-center-lg">{caption}</figcaption>
+        </figure>
     );
 }
 
