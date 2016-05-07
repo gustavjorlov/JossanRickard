@@ -124,7 +124,8 @@ function extractImageurls(body){
 					url: item.images.standard_resolution.url,
 					caption: item.caption ? item.caption.text : "",
 					id: item.id,
-					time: item.created_time
+					time: item.created_time,
+					displayname: item.user.full_name || item.user.username
 				};
 			});
 		}
