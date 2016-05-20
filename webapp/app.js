@@ -32,7 +32,7 @@ class Application extends React.Component {
     componentDidMount(){
         console.log("componentDidMount");
         this.getMessages();
-        setInterval(() => this.getMessages, 1000*15);
+        setInterval(() => {this.getMessages()}, 1000*15);
     }
     render(){
         return (
