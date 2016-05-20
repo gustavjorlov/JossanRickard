@@ -22,3 +22,7 @@ h1 {
 small.text-muted {
     display: block;
 }
+
+html {
+    background: black;
+}

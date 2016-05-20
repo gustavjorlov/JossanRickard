@@ -12,25 +12,27 @@ class Application extends React.Component {
             images: []
         };
     }
+    getMessages(){
+        $.get("/messages", (response, status) => {
+            console.log(response);
+            this.setState({
+                messages: response.filter((item) => {
+                    return item.type === "text";
+                }).sort((a, b) => {
+                    return Number(a.time) < Number(b.time) ? 1 : -1;
+                }),
+                images: response.filter((item) => {
+                    return item.type === "instagram";
+                }).sort((a, b) => {
+                    return Number(a.time) < Number(b.time) ? 1 : -1;
+                })
+            });
+        });
+    }
     componentDidMount(){
         console.log("componentDidMount");
-        setInterval(() => {
-            $.get("/messages", (response, status) => {
-                console.log(response);
-                this.setState({
-                    messages: response.filter((item) => {
-                        return item.type === "text";
-                    }).sort((a, b) => {
-                        return Number(a.time) < Number(b.time) ? 1 : -1;
-                    }),
-                    images: response.filter((item) => {
-                        return item.type === "instagram";
-                    }).sort((a, b) => {
-                        return Number(a.time) < Number(b.time) ? 1 : -1;
-                    })
-                });
-            });
-        }, 1000*15);
+        this.getMessages();
+        setInterval(() => this.getMessages, 1000*15);
     }
     render(){
         return (
